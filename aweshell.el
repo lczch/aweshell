@@ -419,9 +419,9 @@ Create new one if no eshell buffer exists."
 ;; eshell-prompt-extras
 ;; Display extra information and color for your eshell prompt.
 (require 'eshell-prompt-extras)
-(with-eval-after-load "esh-opt"
-  (setq eshell-highlight-prompt nil
-        eshell-prompt-function 'epe-theme-pipeline))
+;; (with-eval-after-load "esh-opt"
+;;   (setq eshell-highlight-prompt nil
+;;         eshell-prompt-function 'epe-theme-pipeline))
 
 ;; Validate command before post to eshell.
 (defun aweshell-validate-command ()
@@ -700,10 +700,11 @@ Create new one if no eshell buffer exists."
                                 nil))
            (suggest-completions (mapcar (lambda (c) (string-trim (concat command-prefix-args " " c))) shell-completions)))
       ;; Mix best history and complete arguments just when history not exist in completion arguments.
-      (if (and most-similar
-               (not (member most-similar suggest-completions)))
-          (append (list most-similar) suggest-completions)
-        suggest-completions)
+      ;; (if (and most-similar
+      ;;          (not (member most-similar suggest-completions)))
+      ;;     (append (list most-similar) suggest-completions)
+      ;;   suggest-completions)
+      suggest-completions
       )))
 
 (defun aweshell-autosuggest (command &optional arg &rest ignored)
@@ -716,12 +717,12 @@ Create new one if no eshell buffer exists."
     (candidates (aweshell-autosuggest-candidates arg))
     (sorted nil)))
 
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (company-mode 1)
-            (setq-local company-idle-delay 0)
-            (setq-local company-backends '(aweshell-autosuggest))
-            ))
+;; (add-hook 'eshell-mode-hook
+;;           (lambda ()
+;;             (company-mode 1)
+;;             (setq-local company-idle-delay 0)
+;;             (setq-local company-backends '(aweshell-autosuggest))
+;;             ))
 
 (provide 'aweshell)
 
